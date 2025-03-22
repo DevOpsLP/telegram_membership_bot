@@ -153,14 +153,14 @@ async def aprobar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     cursor.execute("SELECT id, paid_until FROM users WHERE telegram_user_id = ?", (user_id,))
     row = cursor.fetchone()
 
-    today = datetime.datetime.now().date()
+    today = datetime.now().date()
     today_str = today.strftime('%Y-%m-%d')
     new_paid_until_str = None
 
     if not row:
         # User doesn't exist: create new record with 30 days access.
         join_date_str = today_str
-        paid_until_date = today + datetime.timedelta(days=30)
+        paid_until_date = today + timedelta(days=30)
         new_paid_until_str = paid_until_date.strftime('%Y-%m-%d')
 
         cursor.execute("""
@@ -171,7 +171,7 @@ async def aprobar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         conn.commit()
     else:
         db_id, paid_until_str = row
-        old_paid_until = datetime.datetime.strptime(paid_until_str, '%Y-%m-%d').date()
+        old_paid_until = datetime.strptime(paid_until_str, '%Y-%m-%d').date()
 
         if old_paid_until >= today:
             # Still active: extend from current paid_until.
@@ -263,8 +263,8 @@ async def tiempo_restante(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     user_row = cursor.fetchone()
 
     if user_row:
-        paid_until = datetime.datetime.strptime(user_row[0], '%Y-%m-%d').date()
-        days_left = (paid_until - datetime.datetime.now().date()).days
+        paid_until = datetime.strptime(user_row[0], '%Y-%m-%d').date()
+        days_left = (paid_until - datetime.now().date()).days
 
         if days_left > 0:
             await update.message.reply_text(f"🕒 Te quedan {days_left} días antes de que venza tu acceso.")

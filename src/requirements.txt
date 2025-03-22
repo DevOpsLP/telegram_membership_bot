@@ -2,3 +2,4 @@ python-telegram-bot
 APScheduler
 python-dotenv
 telegram
+telethon
