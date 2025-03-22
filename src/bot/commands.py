@@ -175,15 +175,15 @@ async def aprobar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         if old_paid_until >= today:
             # Still active: extend from current paid_until.
-            new_paid_until = old_paid_until + datetime.timedelta(days=30)
+            new_paid_until = old_paid_until + timedelta(days=30)
         else:
             days_expired = (today - old_paid_until).days
             if days_expired > 30:
                 # Expired more than 30 days ago: reset from today.
-                new_paid_until = today + datetime.timedelta(days=30)
+                new_paid_until = today + timedelta(days=30)
             else:
                 # Expired within 30 days: extend from the old paid_until.
-                new_paid_until = old_paid_until + datetime.timedelta(days=30)
+                new_paid_until = old_paid_until + timedelta(days=30)
 
         new_paid_until_str = new_paid_until.strftime('%Y-%m-%d')
 
