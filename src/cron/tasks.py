@@ -1,5 +1,4 @@
 import os
-import sys
 import asyncio
 import datetime
 import logging
@@ -7,6 +6,8 @@ import sqlite3
 import re
 from telegram import Bot
 from dotenv import load_dotenv
+
+
 
 # Load environment variables
 load_dotenv()
@@ -32,7 +33,12 @@ async def notify_users():
         tomorrow = today + datetime.timedelta(days=1)
 
         # Enable safe DATE parsing
-        conn = sqlite3.connect("db/database.db", detect_types=sqlite3.PARSE_DECLTYPES)
+        # Get the project root (assuming tasks.py is in src/cron/)
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        DB_PATH = os.path.join(BASE_DIR, "db", "database.db")
+
+        # Then use DB_PATH to connect:
+        conn = sqlite3.connect(DB_PATH, detect_types=sqlite3.PARSE_DECLTYPES)
         cursor = conn.cursor()
 
         cursor.execute("""
