@@ -54,8 +54,8 @@ async def notify_users():
         for user in expiring_users:
             user_id, first_name, username, paid_until = user
 
-            if user_id != 7498855771:
-                continue
+            # if user_id != 7498855771:
+            #     continue
 
             full_name = escape_markdown_v2(first_name or "Usuario")
             if isinstance(paid_until, str):
