@@ -94,11 +94,11 @@ async def renovar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if telegram_user_id in ADMIN_IDS:
         admin_help = (
             "👮‍♂️ *Admin Commands*\n\n"
-            "/aprobar <user_id> — Aprueba un pago y extiende la suscripción\n"
-            "/denegar <user_id> — Rechaza un pago y elimina al usuario\n"
-            "/renovar — Notifica a admins que quieres renovar la suscripción\n"
-            "/tiempoRestante — Comprueba días restantes de tu suscripción\n"
-            "/expiring <days> — Lista usuarios con suscripciones próximas a vencer\n"
+            "/aprobar \\<user\\_id\\> — Aprueba un pago y extiende la suscripción\n"
+            "/denegar \\<user\\_id\\> — Rechaza un pago y elimina al usuario\n"
+            "/renovar \\- Notifica a admins que quieres renovar la suscripción\n"
+            "/tiempoRestante \\- Comprueba días restantes de tu suscripción\n"
+            "/expiring \\<days\\> \\— Lista usuarios con suscripciones próximas a vencer\n"
         )
         await update.message.reply_text(admin_help, parse_mode="MarkdownV2")
         return
